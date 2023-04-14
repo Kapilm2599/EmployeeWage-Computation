@@ -3,22 +3,24 @@ package com.bridgelabz.EmployeeWage;
 import java.util.Random;
 
 public class EmployeeWage {
-	
-	public static void main(String[] args) {
-		System.out.println("Welcome to Employee Wage Java Program");
-		Random random = new Random();
 		
-		int wagePerHrs = 20;
-		int fullDayHrs = 8;
-		int halfDayHrs = 4;
-		int salary = 0;
-		int monthlysalary = 0;
-		int days = 0;
-		int monthlyHrs = 0;
+		public static int wagePerHrs = 20;
+		public static int fullDayHrs = 8;
+		public static int halfDayHrs = 4;
+		public static int salary = 0;
+		public static int monthlysalary = 0;
+		public static int workingDaysPerMonth = 20;
+		public static int days = 0;
+		public static int monthlyHrs = 0;
+		
+		public static int EmpWage() {
+			System.out.println("Welcome to Employee Wage Java Program");
+			Random random = new Random(); 
+		
 		
 		while (days != 20 && monthlyHrs != 100) {
 			days++;
-		int randomNum = random.nextInt(3);
+			int randomNum = random.nextInt(3);
 		
 		switch (randomNum) {
 
@@ -43,8 +45,12 @@ public class EmployeeWage {
 
 	}
 	System.out.println("Monthly Salary: " + monthlysalary);
+	return monthlysalary;
 	
 	} 	
+	public static void main(String[] args) {
+		EmpWage();
+	}
 
 
 }
