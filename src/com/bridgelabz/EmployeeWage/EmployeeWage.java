@@ -4,53 +4,67 @@ import java.util.Random;
 
 public class EmployeeWage {
 		
-		public static int wagePerHrs = 20;
 		public static int fullDayHrs = 8;
 		public static int halfDayHrs = 4;
-		public static int salary = 0;
-		public static int monthlysalary = 0;
-		public static int workingDaysPerMonth = 20;
-		public static int days = 0;
-		public static int monthlyHrs = 0;
 		
-		public static int EmpWage() {
-			System.out.println("Welcome to Employee Wage Java Program");
-			Random random = new Random(); 
+		private final String companyName;
+		private final int WagePerHrs;
+		private final int workingHrs;
+		private final int workingDays;
 		
+		static Random random = new Random(); 
 		
-		while (days != 20 && monthlyHrs != 100) {
-			days++;
-			int randomNum = random.nextInt(3);
-		
-		switch (randomNum) {
+		public EmployeeWage(String companyName, int wagePerHrs, int workingHrs, int workingDays) {
+			this.companyName = companyName;
+			this.WagePerHrs = wagePerHrs;
+			this.workingDays = workingDays;
+			this.workingHrs = workingHrs;
 
-		case 0:
-			//System.out.println("Employee is Absent");
-			//System.out.println("Monthly Salary will be: ");
-			break;
+		}
+		public int calculateWage() {
+			int salary = 0;
+			int totalSalary = 0;
+			int totalWorkingHrs = 0;
+			int days = 0;
+		
+		
+			while (totalWorkingHrs <= workingHrs && days <= workingDays) {
+				days++;
+				int empCheck = random.nextInt(3); 
+		
+		switch (empCheck) {
 		case 1:
 			//System.out.println("Employee is Present");
-			System.out.println("Monthly salary for Full Day: ");
-			salary = wagePerHrs * fullDayHrs;
+			System.out.println("Present Full Day: ");
+			salary = WagePerHrs * fullDayHrs;
+			totalWorkingHrs = totalWorkingHrs + fullDayHrs;
 			break;
 		case 2:
 			//System.out.println("Employee is Present");
-			System.out.println("Monthly Salary for Half Day: ");
-			salary = wagePerHrs * halfDayHrs;
+			System.out.println("Present Half Day: ");
+			salary = WagePerHrs * halfDayHrs;
+			totalWorkingHrs = totalWorkingHrs + halfDayHrs;
 			break;
+		default:
+			System.out.println("Employee Absent");
 
 		}
-		monthlysalary = monthlysalary + salary;
-		System.out.println("Day" + days + "Salary is: " + salary);
-
+		System.out.print("Day: " + days + empCheck + " ");
+		System.out.print("Working Hours: " + totalWorkingHrs + " ");
+		System.out.print("Salary is: " + salary + " ");
+		totalSalary = totalSalary + salary;
 	}
-	System.out.println("Monthly Salary: " + monthlysalary);
-	return monthlysalary;
-	
-	} 	
+	return totalWorkingHrs * WagePerHrs;
+  }
 	public static void main(String[] args) {
-		EmpWage();
-	}
+		System.out.println("Welcome to Employee Wage Java Program");
 
+		EmployeeWage TCS = new EmployeeWage("TCS", 23, 90, 21);
+		EmployeeWage Honda = new EmployeeWage("Honda", 24, 109, 22);
+
+		System.out.println("Total employee's wage of Company: " + TCS.companyName + ": " + TCS.calculateWage());
+		System.out.println("Total employee's wage of Company: " + Honda.companyName + ": " + Honda.calculateWage());
+	}
+		
 
 }
