@@ -1,70 +1,72 @@
 package com.bridgelabz.EmployeeWage;
 
-import java.util.Random;
-
 public class EmployeeWage {
 		
-		public static int fullDayHrs = 8;
-		public static int halfDayHrs = 4;
-		
-		private final String companyName;
-		private final int WagePerHrs;
-		private final int workingHrs;
-		private final int workingDays;
-		
-		static Random random = new Random(); 
-		
-		public EmployeeWage(String companyName, int wagePerHrs, int workingHrs, int workingDays) {
-			this.companyName = companyName;
-			this.WagePerHrs = wagePerHrs;
-			this.workingDays = workingDays;
-			this.workingHrs = workingHrs;
+	public static final int IS_FULL_TIME = 1;
+	public static final int IS_PART_TIME = 2;
 
-		}
-		public int calculateWage() {
-			int salary = 0;
-			int totalSalary = 0;
-			int totalWorkingHrs = 0;
-			int days = 0;
-		
-		
-			while (totalWorkingHrs <= workingHrs && days <= workingDays) {
-				days++;
-				int empCheck = random.nextInt(3); 
-		
-		switch (empCheck) {
-		case 1:
-			//System.out.println("Employee is Present");
-			System.out.println("Present Full Day: ");
-			salary = WagePerHrs * fullDayHrs;
-			totalWorkingHrs = totalWorkingHrs + fullDayHrs;
-			break;
-		case 2:
-			//System.out.println("Employee is Present");
-			System.out.println("Present Half Day: ");
-			salary = WagePerHrs * halfDayHrs;
-			totalWorkingHrs = totalWorkingHrs + halfDayHrs;
-			break;
-		default:
-			System.out.println("Employee Absent");
+	private final String companyName;
+	private final int empRatePerHrs;
+	private final int numOfWorkingDays;
+	private final int maxHoursInMonth;
+	private int totalEmpWage;
 
-		}
-		System.out.print("Day: " + days + empCheck + " ");
-		System.out.print("Working Hours: " + totalWorkingHrs + " ");
-		System.out.print("Salary is: " + salary + " ");
-		totalSalary = totalSalary + salary;
+	public EmployeeWage(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHoursInMonth) {
+		this.companyName = companyName;
+		this.empRatePerHrs = empRatePerHour;
+		this.numOfWorkingDays = numOfWorkingDays;
+		this.maxHoursInMonth = maxHoursInMonth;
 	}
-	return totalWorkingHrs * WagePerHrs;
-  }
-	public static void main(String[] args) {
-		System.out.println("Welcome to Employee Wage Java Program");
 
-		EmployeeWage TCS = new EmployeeWage("TCS", 23, 90, 21);
-		EmployeeWage Honda = new EmployeeWage("Honda", 24, 109, 22);
+	public static void main(String args[]) {
+		EmployeeWage TCS = new EmployeeWage("TCS", 50, 15, 200);
+		EmployeeWage Honda = new EmployeeWage("Honda", 80, 20, 120);
+		EmployeeWage Bajaj = new EmployeeWage("Bajaj", 90, 18, 220);
 
-		System.out.println("Total employee's wage of Company: " + TCS.companyName + ": " + TCS.calculateWage());
-		System.out.println("Total employee's wage of Company: " + Honda.companyName + ": " + Honda.calculateWage());
+		TCS.computeEmpWage();
+		System.out.println(TCS);
+		Honda.computeEmpWage();
+		System.out.println(Honda);
+		Bajaj.computeEmpWage();
+		System.out.println(Bajaj);
 	}
-		
+
+	public void computeEmpWage() {
+		int empHrs = 0;
+		int empWage = 0;
+		int totalWorkingDays = 0;
+		int totalEmpHrs = 0;
+
+		for (totalWorkingDays = 1; totalEmpHrs <= maxHoursInMonth
+				&& totalWorkingDays < numOfWorkingDays; totalWorkingDays++) {
+			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+
+			switch (empCheck) {
+			case IS_FULL_TIME:
+				empHrs = 8;
+				System.out.println("Employee is present Full time.");
+				break;
+
+			case IS_PART_TIME:
+				empHrs = 4;
+				System.out.println("Employee is present Part time.");
+				break;
+
+			default:
+				empHrs = 0;
+				System.out.println("Employee is absent.");
+			}
+			empWage = empHrs * empRatePerHrs;
+			totalEmpHrs += empHrs;
+			System.out.println("Day " + totalWorkingDays + " Employee hours : " + empHrs + " Wage $" + empWage);
+		}
+		totalEmpWage = totalEmpHrs * empRatePerHrs;
+		System.out.println();
+	}
+
+	@Override
+	public String toString() {
+		return " " + companyName + " company Employee Monthly Wage : $" + totalEmpWage + "\n";
+	}
 
 }
