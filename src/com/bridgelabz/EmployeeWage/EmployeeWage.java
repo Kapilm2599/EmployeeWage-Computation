@@ -59,6 +59,7 @@ public class EmployeeWage implements IComputeEmpWage {
 				empHrs = 0;
 				System.out.println("Employee is absent.");
 			}
+			
 			empWage = empHrs * companyWage.empRatePerHour;
 			totalEmpHrs += empHrs;
 			System.out.println("Day " + totalWorkingDays + "	Employee hours : " + empHrs + "	Wage $" + empWage);
